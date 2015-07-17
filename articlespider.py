@@ -6,9 +6,9 @@ class ArticleSpider(scrapy.Spider):
 
   def parse(self, response):
     for url in response.css('a.gui-feed-title::attr("href")').extract():      
-      yield scrapy.Request(url, self.parse_noticia)
+      yield scrapy.Request(url, self.parse_article)
 
-  def parse_noticia(self, response):
+  def parse_article(self, response):
     for article_html in response.css('#glb-materia'):       
       article = {
         'url': response.url,
