@@ -1,6 +1,6 @@
 # Hello Scrapy
 
-## Requeriments
+## Requirements
 * Scrapy
 
 ## How use
