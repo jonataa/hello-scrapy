@@ -11,21 +11,20 @@ class ArticleSpider(Spider):
 
   def parse_article(self, response):
     for article_html in response.css('#glb-materia'):
-      yield Article(
-        url=response.url, 
-        title=article_html.css('[itemprop=headline]::text').extract_first(),
-        description=article_html.css('[itemprop=description]::text').extract_first(),
-        author=article_html.css('[itemprop=author]::text').extract_first(),
-        body=article_html.css('[itemprop=articleBody] p::text').extract(),
-        imgs=self.get_images(article_html)
-      )           
+      article = Article()
+      article['url'] = response.url
+      article['title'] = article_html.css('[itemprop=headline]::text').extract_first()
+      article['description'] = article_html.css('[itemprop=description]::text').extract_first()
+      article['author'] = article_html.css('[itemprop=author]::text').extract_first()
+      article['body'] = article_html.css('[itemprop=articleBody] p::text').extract()
+      article['imgs'] = self.get_images(article_html)
+      yield article
 
   def get_images(self, article_html):    
     images = []    
     for img in article_html.css('.foto img'):
-      image = Image(
-        src=img.xpath('@src').extract_first(), 
-        title=img.xpath('@title').extract_first()
-      )
-      images.append(image)      
+      image = Image()
+      image['src'] = img.xpath('@src').extract_first(), 
+      image['title'] =img.xpath('@title').extract_first()      
+      images.append(image)
     return images
