@@ -1,7 +1,7 @@
 import scrapy
 
-class NoticiaSpider(scrapy.Spider):
-  name = 'noticiaspider'
+class ArticleSpider(scrapy.Spider):
+  name = 'articlespider'
   start_urls = ['http://sportv.globo.com/site']
 
   def parse(self, response):
